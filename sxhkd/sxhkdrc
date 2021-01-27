@@ -1,0 +1,169 @@
+super + Return
+     alacritty
+
+super + shift + v
+      pavucontrol 
+
+super + shift + c 
+     termite
+
+super + w 
+     brave
+
+super + control + p
+      scrot 
+
+control + p
+    system-config-printer
+
+super + shift + d 
+      discord     
+
+control + m
+   tdrop -ma -w 60% -x 591 -y 309 -h 60% alacritty -e mocp
+
+super + shift + h
+    tdrop -ma -w 40% -x 591 -y 309 -h 60% alacritty -e htop
+
+super + Escape 
+    rofi -show menu -modi "menu:rofi-power-menu --choices=shutdown/reboot/suspend/logout/lockscreen" -font "Source Code Pro 11" -color-normal "#04152E,#ffffff,#04152E,#2E93A7,#ffffff" -color-window "#04152E,#005fff,#E4AD79"
+
+super + alt + f
+     rofi -show file-browser -file-browser-show-hidden -file-browser-dir ~ -font "Source Code Pro 11" -color-normal "#04152E,#ffffff,#04152E,#2E93A7,#ffffff" -color-window "#04152E,#005fff,#E4AD79"
+
+super + shift + Return
+          rofi -show run -font "Source Code Pro 11" -color-normal "#04152E,#ffffff,#04152E,#2E93A7,#ffffff" -color-window "#04152E,#005fff,#E4AD79"
+
+super + shift + e
+        rofi -show emoji -font "joypixels 11" -color-normal "#04152E,#ffffff,#04152E,#2E93A7,#ffffff" -color-window "#04152E,#005fff,#E4AD79"
+
+super + shift + k
+     cat ~/.config/sxhkd/sxhkdrc | rofi -show run -font "Source Code Pro 11" -color-normal "#04152E,#ffffff,#04152E,#2E93A7,#ffffff" -color-window "#04152E,#005fff,#E4AD79" -dmenu
+
+super + shift + w
+      rofi -show window -font "Source Code Pro 11" -color-normal "#04152E,#ffffff,#04152E,#2E93A7,#ffffff" -color-window "#04152E,#005fff,#E4AD79"     
+
+control + k
+     cat ~/.config/ranger/rc.conf | grep 'map' | rofi -show run -font "Source Code Pro 11" -color-normal "#04152E,#ffffff,#04152E,#2E93A7,#ffffff" -color-window "#04152E,#005fff,#E4AD79" -dmenu
+
+control + shift + q
+      for win in $(bspc query -N -n .leaf.\!window); do bspc node $win -k; done;
+
+super + d
+   tdrop -ma -w 99% -x 8 -y 40 termite
+
+super + g
+   sudo gparted
+
+super + v 
+     virtualbox
+
+control + p 
+     packages
+
+control + shift + s
+       storage
+
+super + control + f
+    tdrop -ma -w 60% -x 591 -y 309 -h 60% alacritty -e ranger
+
+super + n 
+    tdrop -ma -w 60% -x 591 -y 309 -h 60% alacritty -e newsboat 
+
+super + a 
+   lxappearance
+
+super + {F2,F3}
+   xbacklight {-dec 1,-inc 1}
+
+super + i
+    hexchat
+      
+super + shift + n 
+   nitrogen 
+
+super + b
+    librewolf
+
+super + f
+    pcmanfm
+
+super + e
+    thunderbird
+
+super + r 
+   pkill -USR1 -x sxhkd
+
+super + shift + r 
+     bspc wm -r
+
+super + q
+     bspc node -c
+
+super + shift + p
+   killall polybar
+
+super + p
+   polybar example &   
+
+super + F6
+    amixer -D pulse set Master 1+ toggle
+
+#only use if media keys are not working 
+super + F7
+ amixer -D pulse sset Master 1%-
+
+super + F8
+ amixer -D pulse sset Master 1%+
+
+super + shift + 0
+    bspc config top_padding 0
+
+super + m 
+  bsp-layout set tall 1 --master-size 0.5
+
+super + shift + m 
+   bsp-layout set rtall 1 --master-size 0.5        
+
+super + shift + b 
+   bsp-layout set tiled 1 
+
+control + {Left,Down,Up,Right}
+         bspc node --presel-dir {west,south,north,east} -i
+
+super + control + r
+   bspc node @/ -R 90
+
+super + control + {h,j,k,l}
+bspc node -p {west,south,north,east}
+
+super + {1,2,3,4,5,6,7,8,9}                  
+      bspc desktop -f {1,2,3,4,5,6,7,8,9}
+
+control + alt + {1,2,3,4,5,6,7,8,9}
+        bspc node -d {1,2,3,4,5,6,7,8,9}
+
+super + {Left,Down,Up,Right}
+       bspc node -f {west,south,north,east}
+
+super + shift + {Left,Down,Up,Right}
+         bspc node -s {west,south,north,east}
+
+super + {t,shift + t,s,shift + f}
+       bspc node -t {tiled,pseudo_tiled,floating,fullscreen}         
+
+super + control + {Left,Down,Up,Right}
+         bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+super + alt + {Left,Down,Up,Right}
+         bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+super + control + {1-9}
+    bspc node -r 0.{1-9} 
+
+super + {h,j,k,l}
+        bspc node -v {-20 0,0 20,0 -20,20 0} 
+
+super + shift + Q
+       bspc quit
+          
