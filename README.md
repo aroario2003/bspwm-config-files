@@ -14,3 +14,4 @@
 * bspc `(comes with bspwm)`
 * bsp-layout `(github)`
 * scrot
+* sxhkd
