@@ -1,6 +1,6 @@
 # bspwm-config-files
 
-##Dependencies
+## Dependencies
 * ttf-joypixels
 * dunst
 * alacritty
