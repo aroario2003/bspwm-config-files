@@ -1,0 +1,11 @@
+add_newline = false
+
+[line_break]
+disabled = true
+
+[character]
+error_symbol = "[✖](bold red) "
+
+[username]
+style_user = "bold dimmed blue"
+show_always = true

@@ -18,11 +18,13 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #00222
+background = #04142D
 background-alt = #444
 bg1 = #444
 bg2 = #04152E
 fg1 = #fff
+bg3 = #005fd7
+bg4 = #2E93A7
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
@@ -34,16 +36,20 @@ alert = #bd2c40
 monitor = ${env:MONITOR:eDP1}
 width = 100%
 height = 27
-;offset-x = 0%
-;offset-y = 0%
+;offset-x = 1%
+;offset-y = 2%
 fixed-center = false
+radius = 7.0
 
-override-redirect=true
+;override-redirect=true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3
 line-color = #f00
+
+border-size = 5
+border-color = #00000000
 
 padding-left = 0
 padding-right = 0
@@ -59,8 +65,8 @@ font-4 = Monospace:size=12;3
 font-5 = Joypixels:scale=8
 
 modules-left = bspwm xwindow i3
-modules-center = date
-modules-right = pulseaudio network power filesystem updates packages memory cpu wlan temperature calendar  
+modules-center = 
+modules-right = weather brightness volume uptime network power filesystem packages memory cpu wlan temperature calendar date powermenu
 
 [module/cpu]
 
@@ -91,42 +97,79 @@ monitor = ${env:MONITOR:DP1}
 type = internal/xwindow
 label = %title:0:30:...%
 
+[module/volume]
+type = custom/script
+exec = ~/.config/polybar/scripts/volume.sh
+interval = 1
+label = 🔊 %output%
+click-left = pavucontrol &
+format-underline = #005fd7
+content-foreground = ${colors.fg1}
+
+[module/brightness]
+type = custom/script
+exec = xbacklight | awk -F '.' '{print "🔆"$1"%"}'
+label = %output%
+interval = 1
+format-underline = #E4AD79
+content-foreground = ${colors.fg1}
+
 [module/filesystem]
 type = custom/script
 exec = df -h | grep '/dev/sda2' | awk '{print $4}'
 interval = 50
 label = 🗃️ %output%
-format-underline = #E4AD79
+format-underline = #005fd7
 click-left = /usr/bin/storage
 content-foreground = ${colors.fg1}
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
 
 [module/calendar]
 type = custom/script
 exec = date +%B" "%d," "%Y
 interval = 10800
 format-prefix = "📅 "
+click-left = tdrop  -ma -w 30% -x 1230  -y 40  -h 20%  yad --calendar
 format-underline = #E4AD79
 content-foreground = ${colors.fg1}
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
+
+[module/weather]
+type = custom/script
+exec =  ansiweather -l centreville -u imperial | awk '{print $5 $6}'
+label = %output%
+interval = 1800
+format-prefix = "🌞 "
+format-underline = #005fd7
+content-foreground = ${colors.fg1}
 
 [module/network]
 type = custom/script
 exec = /usr/bin/network
 label = %output%
 interval = 10
+format-underline = #005fd7
+content-foreground = ${colors.fg1}
+;format-background = ${colors.bg1}
+click-left = /usr/bin/netip
+
+[module/uptime]
+type = custom/script
+exec = ~/.config/polybar/scripts/time.sh
+interval = 60
+label = ⏱ %output%
 format-underline = #E4AD79
 content-foreground = ${colors.fg1}
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
 
 [module/power]
 type = custom/script
 exec = acpi | awk '{print $4}' | sed 's/\,//g'
 interval = 30
-format-underline = #005fd7
+format-underline = #E4AD79
 format-prefix = "🔋 "
 content-foreground = ${colors.fg1}
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
 
 [module/packages]
 type = custom/script
@@ -135,37 +178,39 @@ interval = 30
 label = 📦 %output%
 format-underline = #E4AD79
 content-foreground = ${colors.fg1}
-format-background = ${colors.bg1}
-
-[module/updates]
-type = custom/script
-exec = ~/.config/polybar/scripts/updates.sh
-interval = 50
-label = ⬆ %output%
-format-underline = #005fd7
-content-foreground = ${colors.fg1}
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
 
 [module/bspwm]
 type = internal/bspwm
 
-label-focused = %name%
-label-focused-background = ${colors.background-alt}
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;˳
+ws-icon-6 = 7;˳
+ws-icon-7 = 8;˳
+ws-icon-8 = 9;˳
+
+label-focused = %icon%
 label-focused-padding = 2
 
-label-occupied = %name%
+label-occupied = %icon%
 label-occupied-padding = 2
+label-occupied-background = ${colors.bg4}
 
-label-urgent = %name%!
+label-urgent = %icon%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty = %name%
-label-empty-foreground = ${colors.foreground-alt}
+label-empty = %icon%
+label-empty-foreground = ${colors.fg1}
+label-empty-background = ${colors.bg3}
 label-empty-padding = 2
 
 ; Separator in between workspaces
- label-separator = |
+; label-separator = |
 
 [module/i3]
 type = internal/i3
@@ -247,7 +292,7 @@ format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 label = 💻%percentage:2%%
 format-underline = #E4AD79
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
 
 [module/memory]
 type = internal/memory
@@ -256,7 +301,7 @@ format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 label = 🧠%percentage_used%%
 format-underline = #005fd7
-format-background = ${colors.bg1} 
+;format-background = ${colors.bg1} 
 
 [module/wlan]
 type = internal/network
@@ -308,7 +353,7 @@ time-alt = %H:%M:%S
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #005fd7
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
 
 label = %date% %time%
 
@@ -376,7 +421,7 @@ adapter = ADP1
 full-at = 100
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #005fd7
+format-charging-underline = #E4AD79
 
 format-background = ${colors.bg1}
 
@@ -413,7 +458,7 @@ warn-temperature = 100
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>
 format-underline = #005fd7
-format-background = ${colors.bg1}
+;format-background = ${colors.bg1}
 
 label = 🌡%temperature-c%
 label-warn = 🌡%temperature-c%
@@ -429,28 +474,23 @@ type = custom/menu
 
 expand-right = true
 
-format-spacing = 1
+format-spacing = 3
+format-underline = #E4AD79
 
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
+label-open =  
+label-open-foreground = ${colors.fg1}
+label-close =  
+label-close-foreground = ${colors.fg1}
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
+menu-0-0 = 
+menu-0-0-exec = systemctl reboot
+menu-0-1 = 
+menu-0-1-exec = systemctl poweroff
+menu-0-2 = 
+menu-0-2-exec = systemctl suspend
+menu-0-3 = 
+menu-0-3-exec = kill -9 -1
 
 [settings]
 screenchange-reload = true
@@ -461,7 +501,7 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 0
-margin-bottom = 0
+margin-top = 2
+margin-bottom = 2
 
 ; vim:ft=dosini

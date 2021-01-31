@@ -10,6 +10,9 @@ super + shift + c
 super + w 
      brave
 
+super + control + n
+      newsboat -x reload & notify-send "Newsboat" "reloading rss" 
+
 super + control + p
       scrot 
 
@@ -18,6 +21,9 @@ control + p
 
 super + shift + d 
       discord     
+
+super + c
+   tootle
 
 control + m
    tdrop -ma -w 60% -x 591 -y 309 -h 60% alacritty -e mocp
@@ -123,7 +129,7 @@ super + m
   bsp-layout set tall 1 --master-size 0.5
 
 super + shift + m 
-   bsp-layout set rtall 1 --master-size 0.5        
+     bsp-layout set rtall 1 --master-size 0.5        
 
 super + shift + b 
    bsp-layout set tiled 1 
@@ -135,7 +141,7 @@ super + control + r
    bspc node @/ -R 90
 
 super + control + {h,j,k,l}
-bspc node -p {west,south,north,east}
+     bspc node -p {west,south,north,east}
 
 super + {1,2,3,4,5,6,7,8,9}                  
       bspc desktop -f {1,2,3,4,5,6,7,8,9}
